@@ -18,7 +18,7 @@ Load CSV file > Postgres db in GCP Cloud SQL Instance
 default_args = {
     'owner': 'monica.guajardo',
     'depends_on_past': False,    
-    'start_date': datetime(2022, 21, 1),
+    'start_date': datetime(2022, 1, 1),
     'email': ['monica.guajardo@wizeline.com'],
     'email_on_failure': True,
     'email_on_retry': False,
@@ -43,6 +43,7 @@ def csv_to_postgres():
     pg_hook = PostgresHook(postgres_conn_id='postgres_default')
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
     curr = get_postgres_conn.cursor()
+    
     # CSV loading to table
     with open(file_path("../../Afile/user_purchase.csv"), "r") as f:
         next(f)
