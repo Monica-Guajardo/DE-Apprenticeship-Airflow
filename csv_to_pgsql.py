@@ -45,7 +45,7 @@ def csv_to_postgres():
     curr = get_postgres_conn.cursor()
     
     # CSV loading to table
-    with open(file_path("../../Afile/user_purchase.csv"), "r") as f:
+    with open(file_path("user_purchase.csv"), "r") as f:
         next(f)
         curr.copy_from(f, 'user_purchase', sep=",")
         get_postgres_conn.commit()
