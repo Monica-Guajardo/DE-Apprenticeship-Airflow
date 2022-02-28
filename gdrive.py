@@ -50,7 +50,7 @@ with DAG (dag_id='upload_data_postgres',
         task_id='pull_csv_from_drive',
         folder_id=FOLDER_ID,
         file_name=FILE_NAME,
-        bucket_name=BUCKET,
+        destination_bucket= BUCKET,
         object_name=FILE_NAME,
     )
     
