@@ -34,7 +34,7 @@ default_args = {
 
 FILE_NAME = 'user_purchase.csv'
 BUCKET = 'capstone-bucket-m1'
-SCHEMA_NAME='retail'
+SCHEMA_NAME='blayer'
 TABLE_NAME='user_purchase'
 
 
