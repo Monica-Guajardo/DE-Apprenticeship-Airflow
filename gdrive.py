@@ -36,8 +36,19 @@ FILE_NAME = 'user_purchase.csv'
 BUCKET = 'capstone-bucket-m1'
 SCHEMA_NAME='blayer'
 TABLE_NAME='user_purchase'
-
-
+CREATE_SCHEMA= f"CREATE SCHEMA IF NOT EXISTS {SCHEMA_NAME} ;"
+CREATE_TABLE=f"""
+        CREATE TABLE IF NOT EXISTS {SCHEMA_NAME}.{TABLE_NAME} (
+            invoice_number VARCHAR(10),
+            stock_code VARCHAR(20),
+            detail VARCHAR(1000),
+            quantity INT,
+            invoice_date TIMESTAMP,
+            unit_price NUMERIC(8,3),
+            customer_id INT,
+            country VARCHAR(20)); 
+            """
+            
 def csv_to_postgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
     cur = get_postgres_conn.cursor()
@@ -55,18 +66,7 @@ with DAG (dag_id='upload_data_postgres',
     
     create_postgres_table = PostgresOperator(
         task_id='create_table',
-        sql= f"""
-        CREATE TABLE IF NOT EXISTS {SCHEMA_NAME}.{TABLE_NAME} (
-            invoice_number VARCHAR(10),
-            stock_code VARCHAR(20),
-            detail VARCHAR(1000),
-            quantity INT,
-            invoice_date TIMESTAMP,
-            unit_price NUMERIC(8,3),
-            customer_id INT,
-            country VARCHAR(20)); 
-            """,
-        postgres_conn_id='postgres_default',
+        sql= CREATE_SCHEMA + CREATE_TABLE,
         autocommit=True,
     )
     
