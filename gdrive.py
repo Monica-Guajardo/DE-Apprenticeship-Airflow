@@ -32,13 +32,10 @@ default_args = {
     'retry_delay': timedelta(minutes = 2),
 }
 
-FOLDER_ID = '1hFJX67KC7uwzq40TAuB_acKLAHLiEtF-'
 FILE_NAME = 'user_purchase.csv'
 BUCKET = 'capstone-bucket-m1'
 SCHEMA_NAME='retail'
 TABLE_NAME='user_purchase'
-DRIVE_ID ='1og84hGbuuqkbP1oDZhRI04sWstVAc81e'
-IMPERSONATION_CHAIN='impersonated-account@gcp-data-eng-appr05-596c093a.iam.gserviceaccount.com'
 
 
 def csv_to_postgres():
@@ -55,16 +52,6 @@ with DAG (dag_id='upload_data_postgres',
           default_args=default_args,
           schedule_interval= "@once",
           catchup=False) as dag:
-    
-    
-    pull_csv_to_gcs = GoogleDriveToGCSOperator(
-        task_id='pull_csv_from_drive',
-        folder_id=FOLDER_ID,
-        file_name=FILE_NAME,
-        bucket_name= BUCKET,
-        object_name=FILE_NAME,
-        drive_id= DRIVE_ID,
-    )
     
     create_postgres_table = PostgresOperator(
         task_id='create_table',
@@ -98,4 +85,4 @@ with DAG (dag_id='upload_data_postgres',
     )
     
     
-pull_csv_to_gcs >>  create_postgres_table >> download_file >> load_csv_to_postgres
+create_postgres_table >> download_file >> load_csv_to_postgres
