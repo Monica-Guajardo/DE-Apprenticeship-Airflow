@@ -49,7 +49,7 @@ CREATE_TABLE=f"""
             country VARCHAR(20)); 
             """
 COPY_COMMAND = f""" COPY {SCHEMA_NAME}.{TABLE_NAME} from stdin WITH CSV HEADER DELIMITER ','"""        
-   
+
 def csv_to_postgres():
     pg_hook = PostgresHook(postgres_conn_id='postgres_default')
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_default').get_conn()
