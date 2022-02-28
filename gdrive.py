@@ -56,7 +56,7 @@ def csv_to_postgres():
     
     with open(FILE_NAME, "r") as f:
         next(f)
-        cur.copy_from(f, "user_purchase", sep =",")
+        cur.copy_from(f, "blayer.user_purchase", sep =",")
         get_postgres_conn.commit()
         cur.close()
 
