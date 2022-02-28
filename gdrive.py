@@ -56,7 +56,7 @@ def csv_to_postgres():
     
     with open(FILE_NAME, "r") as f:
         next(f)
-        cur.copy_from(f, "blayer.user_purchase", sep =",")
+        cur.copy_from(f, "user_purchase", sep =",")
         get_postgres_conn.commit()
         cur.close()
 
@@ -68,6 +68,7 @@ with DAG (dag_id='upload_data_postgres',
     create_postgres_table = PostgresOperator(
         task_id='create_table',
         sql= CREATE_SCHEMA + CREATE_TABLE,
+        postgres_conn_id= 'postgres_default',
         autocommit=True,
     )
     
