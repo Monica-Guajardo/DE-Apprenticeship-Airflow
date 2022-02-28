@@ -37,6 +37,8 @@ FILE_NAME = 'user_purchase.csv'
 BUCKET = 'capstone-bucket-m1'
 SCHEMA_NAME='retail'
 TABLE_NAME='user_purchase'
+DRIVE_ID ='1og84hGbuuqkbP1oDZhRI04sWstVAc81e'
+IMPERSONATION_CHAIN=' impersonated-account@gcp-data-eng-appr05-596c093a.iam.gserviceaccount.com'
 
 
 def csv_to_postgres():
@@ -61,6 +63,8 @@ with DAG (dag_id='upload_data_postgres',
         file_name=FILE_NAME,
         bucket_name= BUCKET,
         object_name=FILE_NAME,
+        drive_id= DRIVE_ID,
+        impersonation_chain=IMPERSONATION_CHAIN,
     )
     
     create_postgres_table = PostgresOperator(
