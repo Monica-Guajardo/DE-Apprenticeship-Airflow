@@ -64,7 +64,6 @@ with DAG (dag_id='upload_data_postgres',
         bucket_name= BUCKET,
         object_name=FILE_NAME,
         drive_id= DRIVE_ID,
-        impersonation_chain=IMPERSONATION_CHAIN,
     )
     
     create_postgres_table = PostgresOperator(
