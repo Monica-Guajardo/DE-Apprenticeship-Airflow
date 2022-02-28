@@ -12,6 +12,15 @@ from airflow.providers.google.cloud.transfers.gcs_to_local import GCSToLocalFile
 from datetime import timedelta
 from datetime import datetime
 
+GoogleDriveToGCSOperator.template_fields = (
+        "bucket_name",
+        "object_name",
+        "folder_id",
+        "file_name",
+        "drive_id",
+        "impersonation_chain",
+    )
+
 default_args = {
     'owner': 'monica.guajardo',
     'depends_on_past': False,
