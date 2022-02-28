@@ -38,7 +38,7 @@ BUCKET = 'capstone-bucket-m1'
 SCHEMA_NAME='retail'
 TABLE_NAME='user_purchase'
 DRIVE_ID ='1og84hGbuuqkbP1oDZhRI04sWstVAc81e'
-IMPERSONATION_CHAIN=' impersonated-account@gcp-data-eng-appr05-596c093a.iam.gserviceaccount.com'
+IMPERSONATION_CHAIN='impersonated-account@gcp-data-eng-appr05-596c093a.iam.gserviceaccount.com'
 
 
 def csv_to_postgres():
