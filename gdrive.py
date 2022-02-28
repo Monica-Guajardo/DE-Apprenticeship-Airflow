@@ -65,9 +65,16 @@ with DAG (dag_id='upload_data_postgres',
           schedule_interval= "@once",
           catchup=False) as dag:
     
+    create_schema = PostgresOperator(
+        task_id='create_schema_for_table',
+        sql = CREATE_SCHEMA,
+        postgres_conn_id='postgres_default',
+        autocommit=True   
+    )
+    
     create_postgres_table = PostgresOperator(
         task_id='create_table',
-        sql= CREATE_SCHEMA + CREATE_TABLE,
+        sql=CREATE_TABLE,
         postgres_conn_id= 'postgres_default',
         autocommit=True,
     )
