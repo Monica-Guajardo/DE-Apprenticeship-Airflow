@@ -1,7 +1,7 @@
 import airflow
 import psycopg2
 import os
-
+from airflow import DAG
 from airflow.hooks.postgres_hook import PostgresHook
 from airflow.operators.python_operator import PythonOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
