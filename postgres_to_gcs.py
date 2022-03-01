@@ -23,12 +23,12 @@ FILE_NAME="user_purchase.parquet"
 BUCKET='capstone-raw-m2'
 
 
-with DAG(dag_id='load_user_purchase_to_gcs_as_parquet',
+with DAG(dag_id='load_user_purchase_to_gcs_parquet',
         default_args=default_args,
         schedule_interval='@once',
         catchup=False) as dag:
     
-    upload_data=PostgresToGCSOperator(task_id='load_user_purchase_to_gcs',
+    upload_data=PostgresToGCSOperator(task_id='load_data_toGcs',
                                       sql=SQL_QUERY,
                                       bucket=BUCKET,
                                       filename=FILE_NAME,
