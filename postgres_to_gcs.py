@@ -23,7 +23,7 @@ FILE_NAME="user_purchase.parquet"
 BUCKET='capstone-raw-m2'
 
 
-with DAG(dag_id='load_user_purchase_to_gcs_parquet',
+with DAG (dag_id='load_user_purchase_to_gcs_parquet',
         default_args=default_args,
         schedule_interval='@once',
         catchup=False) as dag:
