@@ -31,7 +31,7 @@ with DAG(dag_id='load_user_purchase_to_gcs_as_parquet',
     upload_data=PostgresToGCSOperator(task_id='load_user_purchase_to_gcs',
                                       sql=SQL_QUERY,
                                       bucket=BUCKET,
-                                      ilename=FILE_NAME,
+                                      filename=FILE_NAME,
                                       gzip=False)
     
     dummy_start=DummyOperator(task_id='test')
