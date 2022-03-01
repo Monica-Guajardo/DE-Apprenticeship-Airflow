@@ -29,7 +29,7 @@ default_args = {
     'email_on_failure': True,
     'email_on_retry': False,
     'retries': 2,
-    'retry_delay': timedelta(minutes = 2),
+    'retry_delay': timedelta(minutes = 1),
 }
 
 FILE_NAME = 'user_purchase.csv'
@@ -70,29 +70,25 @@ with DAG (dag_id='upload_data_postgres',
         task_id='create_schema_for_table',
         sql = CREATE_SCHEMA,
         postgres_conn_id='postgres_default',
-        autocommit=True   
-    )
+        autocommit=True)
     
     create_postgres_table = PostgresOperator(
         task_id='create_table',
         sql=CREATE_TABLE,
         postgres_conn_id= 'postgres_default',
-        autocommit=True,
-    )
+        autocommit=True)
     
     download_file = GCSToLocalFilesystemOperator(
         task_id='download_file',
         object_name= FILE_NAME,
         bucket= BUCKET,
         filename= FILE_NAME,
-        gcp_conn_id="google_cloud_default"  
-    )
+        gcp_conn_id="google_cloud_default")
     
     load_csv_to_postgres = PythonOperator(
         task_id='load_csv_to_postgres',
         provide_context=True,
-        python_callable = csv_to_postgres
-    )
+        python_callable = csv_to_postgres)
     
     
 create_postgres_table >> download_file >> load_csv_to_postgres
