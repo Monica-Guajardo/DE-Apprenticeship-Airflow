@@ -34,6 +34,7 @@ with DAG (dag_id='load_user_purchase_to_gcs_parquet',
                                       sql=SQL_QUERY,
                                       bucket=BUCKET,
                                       filename=FILENAME,
+                                      
                                       gzip=False)
     
     upload_data_server_side_cursor = PostgresToGCSOperator(
@@ -43,6 +44,7 @@ with DAG (dag_id='load_user_purchase_to_gcs_parquet',
         filename=FILENAME,
         gzip=False,
         use_server_side_cursor=True,
+        cursor_itersize= 50000,
         export_format='parquet',
         dag=dag)
     
