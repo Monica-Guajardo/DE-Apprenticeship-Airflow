@@ -100,4 +100,4 @@ with DAG (dag_id='upload_data_postgres',
     )
     
     
-get_resources >> create_postgres_table >> download_file >> load_csv_to_postgres >> remove_local
+get_resources >> create_schema >> create_postgres_table >> download_file >> load_csv_to_postgres >> remove_local
