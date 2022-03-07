@@ -19,8 +19,10 @@ default_args = {
 }
 
 SQL_QUERY= "SELECT * FROM blayer.user_purchase"
-FILE_NAME="user_purchase.parquet"
-BUCKET='capstone-raw-m2'
+FILENAME="user_purchase{}.parquet"
+BUCKET='capstone-raw-layer-m1'
+GOOGLE_CONN_ID='google_cloud_default'
+POSTGRES_CONN_ID='postgrs_default'
 
 
 with DAG (dag_id='load_user_purchase_to_gcs_parquet',
@@ -31,8 +33,18 @@ with DAG (dag_id='load_user_purchase_to_gcs_parquet',
     upload_data=PostgresToGCSOperator(task_id='load_data_toGcs',
                                       sql=SQL_QUERY,
                                       bucket=BUCKET,
-                                      filename=FILE_NAME,
+                                      filename=FILENAME,
                                       gzip=False)
+    
+    upload_data_server_side_cursor = PostgresToGCSOperator(
+        task_id="get_data_with_server_side_cursor",
+        sql=SQL_QUERY,
+        bucket=BUCKET,
+        filename=FILENAME,
+        gzip=False,
+        use_server_side_cursor=True,
+        export_format='parquet',
+        dag=dag)
     
     dummy_start=DummyOperator(task_id='test')
     dummy_end=DummyOperator(task_id='end_test')
