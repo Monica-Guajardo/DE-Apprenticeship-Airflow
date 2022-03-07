@@ -38,7 +38,7 @@ with DAG (dag_id='load_user_purchase_to_gcs_parquet',
                                       gzip=False)
     
     upload_data_server_side_cursor = PostgresToGCSOperator(
-        task_id="get_data_with_server_side_cursor",
+        task_id='get_data_with_server_side_cursor',
         sql=SQL_QUERY,
         bucket=BUCKET,
         filename=FILENAME,
