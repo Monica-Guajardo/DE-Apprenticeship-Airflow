@@ -35,9 +35,8 @@ with DAG (dag_id='load_user_purchase_to_gcs_parquet',
                                       bucket=BUCKET,
                                       filename=FILENAME,
                                       approx_max_file_size_bytes=20000000,
+                                      export_format ='parquet',
                                       gzip=False)
-    
-    
     
     dummy_start=DummyOperator(task_id='test')
     dummy_end=DummyOperator(task_id='end_test')
