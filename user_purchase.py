@@ -7,7 +7,7 @@ from airflow.operators.dummy import DummyOperator
 from airflow.hooks.postgres_hook import PostgresHook
 from airflow.operators.python_operator import PythonOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
-from airflow.providers.google.cloud.transfers.gs_to_gcs import GCSToGCSOperator
+from airflow.providers.google.cloud.transfers.gcs_to_gcs import GCSToGCSOperator
 from airflow.providers.google.cloud.transfers.gcs_to_local import GCSToLocalFilesystemOperator
 from datetime import timedelta
 from datetime import datetime
