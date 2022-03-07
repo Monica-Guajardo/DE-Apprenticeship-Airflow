@@ -29,6 +29,7 @@ SOURCE_BUCKET ='capstone-resources-m1'
 BUCKET = 'capstone-bucket-m1'
 SCHEMA_NAME='blayer'
 TABLE_NAME='user_purchase'
+OBJECT= ['user_purchase.csv', 'movie_reviews.csv','log_reviews.csv']
 CREATE_SCHEMA= f"CREATE SCHEMA IF NOT EXISTS {SCHEMA_NAME} ;"
 CREATE_TABLE=f"""
         CREATE TABLE IF NOT EXISTS {SCHEMA_NAME}.{TABLE_NAME} (
@@ -65,8 +66,9 @@ with DAG (dag_id='upload_data_postgres',
     get_resources= GCSToGCSOperator(
         task_id='get_file_from_source',
         source_bucket=SOURCE_BUCKET,
-        source_object= FILE_NAME,
-        destination_bucket=BUCKET    
+        source_object= OBJECT[0],
+        destination_bucket=BUCKET,
+        destination_object=OBJECT[0]    
     )
     
     create_schema = PostgresOperator(
