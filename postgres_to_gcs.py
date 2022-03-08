@@ -36,7 +36,7 @@ with DAG (dag_id='load_user_purchase_to_gcs_parquet',
                                       filename=FILENAME,
                                       approx_max_file_size_bytes=10000000,
                                       export_format ='parquet',
-                                      use_server_side_cursos=True,
+                                      use_server_side_cursor=True,
                                       gzip=False)
     
     upload_data_server_side_cursor = PostgresToGCSOperator(
