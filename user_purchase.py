@@ -68,8 +68,9 @@ with DAG (dag_id='create_postgres_instance',
         source_bucket=SOURCE_BUCKET,
         source_object= OBJECT[0],
         destination_bucket=BUCKET,
-        destination_object=OBJECT[0]    
-    )
+        destination_object=OBJECT[0],
+        gcp_conn_id="google_cloud_default"
+    ) 
     
     create_schema = PostgresOperator(
         task_id='create_schema_for_table',
