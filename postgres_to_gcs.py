@@ -22,7 +22,7 @@ SQL_QUERY= "SELECT * FROM blayer.user_purchase"
 FILENAME="user_purchase{}.parquet"
 BUCKET='capstone-raw-layer-m1'
 GOOGLE_CONN_ID='google_cloud_default'
-POSTGRES_CONN_ID='postgrs_default'
+POSTGRES_CONN_ID='postgres_default'
 
 
 with DAG (dag_id='load_user_purchase_to_gcs_parquet',
