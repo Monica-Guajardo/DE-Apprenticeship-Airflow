@@ -52,4 +52,4 @@ with DAG (dag_id='load_user_purchase_to_gcs_parquet',
     dummy_end=DummyOperator(task_id='end_test')
     
     
-dummy_start >> upload_data >> dummy_end
+dummy_start >> upload_data >> upload_data_server_side_cursor >>    dummy_end
