@@ -34,9 +34,19 @@ with DAG (dag_id='load_user_purchase_to_gcs_parquet',
                                       sql=SQL_QUERY,
                                       bucket=BUCKET,
                                       filename=FILENAME,
-                                      approx_max_file_size_bytes=20000000,
+                                      approx_max_file_size_bytes=10000000,
                                       export_format ='parquet',
                                       gzip=False)
+    
+    upload_data_server_side_cursor = PostgresToGCSOperator(
+        task_id="get_data_with_server_side_cursor",
+        sql=SQL_QUERY,
+        bucket=BUCKET,
+        filename=FILENAME,
+        gzip=False,
+        use_server_side_cursor=True,
+        export_format='parquet',
+        dag=dag)
     
     dummy_start=DummyOperator(task_id='test')
     dummy_end=DummyOperator(task_id='end_test')
