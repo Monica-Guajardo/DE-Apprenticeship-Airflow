@@ -58,7 +58,7 @@ def csv_to_postgres():
 def remove_local():
     os.remove(FILE_NAME)
 
-with DAG (dag_id='upload_data_postgres',
+with DAG (dag_id='create_postgres_instance',
           default_args=default_args,
           schedule_interval= "@once",
           catchup=False) as dag:
