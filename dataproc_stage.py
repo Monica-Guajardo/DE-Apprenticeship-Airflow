@@ -42,6 +42,8 @@ with DAG (dag_id='transform_data',
                                                     job_name='{{ var.value.movie_job_name }}',
                                                     cluster_name='{{ var.value.dataproc_cluster_name }}',
                                                     region='{{ var.value.region }}',
+                                                    project_id='{{ var.value.project_id }}',
+                                                    job='{{ var.value.movie_job_name }}'
                                                     )
     
     submit_log_job = DataprocSubmitJobOperator(task_id='submit_log_job',
@@ -49,6 +51,8 @@ with DAG (dag_id='transform_data',
                                                     job_name='{{ var.value.movie_job_name }}',
                                                     cluster_name='{{ var.value.dataproc_cluster_name }}',
                                                     region='{{ var.value.region }}',
+                                                    project_id='{{ var.value.project_id }}',
+                                                    job='{{ var.value.movie_job_name }}'
                                                     )
     
     delete_cluster = DataprocDeleteClusterOperator(task_id='delete_cluster',
