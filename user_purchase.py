@@ -26,7 +26,7 @@ default_args = {
 
 FILE_NAME = 'user_purchase.csv'
 SOURCE_BUCKET ='capstone-resources-m1'
-BUCKET = 'capstone-bucket-m1'
+BUCKET = 'raw-layer-m'
 SCHEMA_NAME='blayer'
 TABLE_NAME='user_purchase'
 OBJECT= ['user_purchase.csv', 'movie_reviews.csv','log_reviews.csv']
@@ -53,7 +53,7 @@ def csv_to_postgres():
         next(f)
         cur.copy_expert(COPY_COMMAND, file=f)
         get_postgres_conn.commit()
-        cur.close()
+    cur.close()
 
 def remove_local():
     os.remove(FILE_NAME)
