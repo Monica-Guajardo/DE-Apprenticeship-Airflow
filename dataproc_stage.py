@@ -4,7 +4,7 @@ from datetime import datetime
 
 from airflow import DAG
 from airflow.providers.google.cloud.operators.dataproc import ClusterGenerator, DataprocCreateClusterOperator, \
-    DataprocDeleteClusterOperator, DataprocSubmitJobOperator
+    DataprocDeleteClusterOperator, DataprocSubmitJobOperator, DataprocSubmitPysparkJobOperator
 
 default_args = {
     'owner': 'monica.guajardo',
