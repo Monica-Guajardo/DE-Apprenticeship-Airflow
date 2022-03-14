@@ -30,13 +30,17 @@ with DAG (dag_id='transform_data',
           catchup=False) as dag:
     
 #---------Create Dataproc Clusters and submit job-----------
-    create_cluster = DataprocCreateClusterOperator
+    create_cluster = DataprocCreateClusterOperator(task_id = 'create_dataproc_cluster',
+                                                   )
     
-    submit_movie_job = DataprocSubmitJobOperator
+    submit_movie_job = DataprocSubmitJobOperator(task_id = 'submit_movie_job',
+                                                 )
     
-    submit_log_job = DataprocSubmitJobOperator
+    submit_log_job = DataprocSubmitJobOperator(task_id = 'submit_log_job',
+                                               )
     
-    delete_cluster = DataprocDeleteClusterOperator
+    delete_cluster = DataprocDeleteClusterOperator(task_id = 'delete_cluster',
+                                                   )
     
     
 create_cluster >> [submit_movie_job >> submit_log_job] >> delete_cluster
