@@ -30,7 +30,12 @@ with DAG (dag_id='transform_data',
           catchup=False) as dag:
     
 #---------Create Dataproc Clusters and submit job-----------
-    create_cluster = DataprocCreateClusterOperator
+    create_cluster = DataprocCreateClusterOperator(task_id='create_cluster',
+                                               project_id='{{ var.value.project_id }}',
+                                               cluster_name='{{ var.value.dataproc_cluster_name }}',
+                                               region='{{ var.value.region }}',
+                                               gcp_conn_id='google_cloud_default',
+                                               dag=dag)
     
     submit_movie_job = DataprocSubmitPySparkJobOperator(task_id='submit_movie_job',
                                                     main='{{ var.value.movie_job }}',
