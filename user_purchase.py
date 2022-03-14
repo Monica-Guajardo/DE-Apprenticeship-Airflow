@@ -62,16 +62,33 @@ with DAG (dag_id='create_postgres_instance',
           default_args=default_args,
           schedule_interval= "@once",
           catchup=False) as dag:
-    
-    get_resources= GCSToGCSOperator(
-        task_id='get_file_from_source',
+  
+#--------Fetch "external" resources and place them on raw layer-------#  
+    get_user_resources= GCSToGCSOperator(
+        task_id='get_users_from_source',
+        source_bucket=SOURCE_BUCKET,
+        source_object= OBJECT[1],
+        destination_bucket=BUCKET,
+        destination_object=OBJECT[1],
+        gcp_conn_id="google_cloud_default"
+    ) 
+    get_review_resources= GCSToGCSOperator(
+        task_id='get_reviews_from_source',
+        source_bucket=SOURCE_BUCKET,
+        source_object= OBJECT[2],
+        destination_bucket=BUCKET,
+        destination_object=OBJECT[2],
+        gcp_conn_id="google_cloud_default"
+    ) 
+    get_log_resources= GCSToGCSOperator(
+        task_id='get_logs_from_source',
         source_bucket=SOURCE_BUCKET,
         source_object= OBJECT[0],
         destination_bucket=BUCKET,
         destination_object=OBJECT[0],
         gcp_conn_id="google_cloud_default"
     ) 
-    
+#----------Create scheme and Table-----------#
     create_schema = PostgresOperator(
         task_id='create_schema_for_table',
         sql = CREATE_SCHEMA,
@@ -83,7 +100,7 @@ with DAG (dag_id='create_postgres_instance',
         sql=CREATE_TABLE,
         postgres_conn_id= 'postgres_default',
         autocommit=True)
-    
+#-------Download file to  local and load to DB--------#   
     download_file = GCSToLocalFilesystemOperator(
         task_id='download_file',
         object_name= FILE_NAME,
@@ -103,4 +120,4 @@ with DAG (dag_id='create_postgres_instance',
     )
     
     
-get_resources >> create_schema >> create_postgres_table >> download_file >> load_csv_to_postgres >> remove_local
+(get_resources, get_review_resources, get_log_resources) >> create_schema >> create_postgres_table >> download_file >> load_csv_to_postgres >> remove_local

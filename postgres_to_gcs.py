@@ -19,13 +19,13 @@ default_args = {
 }
 
 SQL_QUERY= "SELECT * FROM blayer.user_purchase"
-FILENAME='user_purchase'
+FILENAME='user_purchase_2.csv'
 BUCKET='raw-layer-m'
 GOOGLE_CONN_ID='google_cloud_default'
 POSTGRES_CONN_ID='postgres_default'
 
 
-with DAG (dag_id='load_user_purchase_to_gcs_parquet',
+with DAG (dag_id='load_user_purchase_to_gcs',
         default_args=default_args,
         schedule_interval='@once',
         catchup=False) as dag:
