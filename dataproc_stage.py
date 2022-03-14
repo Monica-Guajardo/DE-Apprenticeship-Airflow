@@ -4,7 +4,7 @@ from datetime import datetime
 
 from airflow import DAG
 from airflow.providers.google.cloud.operators.dataproc import ClusterGenerator, DataprocCreateClusterOperator, \
-    DataprocDeleteClusterOperator, DataprocSubmitJobOperator, DataprocSubmitPysparkJobOperator
+    DataprocDeleteClusterOperator, DataprocSubmitJobOperator
 
 default_args = {
     'owner': 'monica.guajardo',
@@ -37,7 +37,7 @@ with DAG (dag_id='transform_data',
                                                gcp_conn_id='google_cloud_default',
                                                dag=dag)
     
-    submit_movie_job = DataprocSubmitPySparkJobOperator(task_id='submit_movie_job',
+    submit_movie_job = DataprocSubmitJobOperator(task_id='submit_movie_job',
                                                     main='{{ var.value.movie_job }}',
                                                     job_name='{{ var.value.movie_job_name }}',
                                                     cluster_name='{{ var.value.dataproc_cluster_name }}',
