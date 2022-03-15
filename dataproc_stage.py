@@ -77,7 +77,7 @@ with DAG (dag_id='transform_data',
                                                    project_id=PROJECT_ID,
                                                    region=REGION,
                                                    cluster_name=CLUSTER_NAME,
-                                                   trigger_rule="all done"
+                                                   trigger_rule="all_success"
                                                    )
     
     
