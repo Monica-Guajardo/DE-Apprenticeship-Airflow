@@ -70,7 +70,7 @@ with DAG (dag_id='transform_data',
     
     submit_log_job = DataprocSubmitJobOperator(task_id="submit_log_job",
                                                job=SPARK_JOB_LOGS,
-                                               regio=REGION,
+                                               region=REGION,
                                                project_id=PROJECT_ID)
     
     delete_cluster = DataprocDeleteClusterOperator(task_id="delete_cluster",
