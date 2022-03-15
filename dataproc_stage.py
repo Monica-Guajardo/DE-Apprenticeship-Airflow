@@ -17,7 +17,7 @@ default_args = {
     'retry_delay': timedelta(minutes = 1),
 }
 PROJECT_ID = "gcp-data-eng-appr05-596c093a"
-CLUSTER_NAME= "capstone-spark-cluster-m3"
+CLUSTER_NAME= "capstone-spark-cluster-moni"
 REGION= "us-central1"
 
 SPARK_JOB_MOVIES = {
