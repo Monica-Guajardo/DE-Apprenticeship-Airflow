@@ -81,4 +81,4 @@ with DAG (dag_id='transform_data',
                                                    )
     
     
-create_cluster >> [submit_movie_job >> submit_log_job] >> delete_cluster
+create_cluster >> submit_movie_job >> submit_log_job >> delete_cluster
