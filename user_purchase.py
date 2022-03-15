@@ -58,7 +58,7 @@ def csv_to_postgres():
 def remove_local():
     os.remove(FILE_NAME)
 
-with DAG (dag_id='create_postgres_instance',
+with DAG (dag_id='postgres_instance_creation',
           default_args=default_args,
           schedule_interval= "@once",
           catchup=False) as dag:
@@ -118,6 +118,7 @@ with DAG (dag_id='create_postgres_instance',
         provide_context=True,
         python_callable = remove_local
     )
+#------then, upload data to gcs-----#
     
     
 (get_user_resources, get_review_resources, get_log_resources) >> create_schema >> create_postgres_table >> download_file >> load_csv_to_postgres >> remove_local
