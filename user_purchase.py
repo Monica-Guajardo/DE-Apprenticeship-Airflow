@@ -121,4 +121,4 @@ with DAG (dag_id='postgres_instance_creation',
 #------then, upload data to gcs-----#
     
     
-(get_user_resources, get_review_resources, get_log_resources) >> create_schema >> create_postgres_table >> download_file >> load_csv_to_postgres >> remove_local
+[get_user_resources, get_review_resources, get_log_resources] >> create_schema >> create_postgres_table >> download_file >> load_csv_to_postgres >> remove_local
